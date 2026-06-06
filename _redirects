@@ -1,2 +1,2 @@
-/ /index.html 200
-/doação /checkout.html 200
+/ajudar /checkout.html 200
+/checkout.html /ajudar 301
