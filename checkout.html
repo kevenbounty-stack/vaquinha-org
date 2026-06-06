@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajude o Genésio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00b894;
+            --primary-dark: #00a383;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header / Logo Area */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            margin-bottom: 10px;
+        }
+
+        .header .badge {
+            background: #dcfce7;
+            color: #0dc04f;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Banner */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            aspect-ratio: 16/9;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Main Content Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .campaign-title {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        /* Progress Bar Section */
+        .progress-section {
+            margin-bottom: 32px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 8px;
+        }
+
+        .amount-raised {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .goal-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .progress-bar-bg {
+            height: 12px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(90deg, var(--primary), #55efc4);
+            border-radius: 6px;
+            transition: width 1s ease-out;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Donation Form */
+        .form-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .value-presets {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .value-btn {
+            padding: 14px 5px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: white;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .value-btn:hover {
+            border-color: var(--primary);
+            background: #f0fff4;
+        }
+
+        .value-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            font-size: 15px;
+            transition: all 0.2s;
+            outline: none;
+            color: var(--text);
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1);
+        }
+
+        textarea.input-field {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .donate-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .donate-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
+        }
+
+        .donate-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Feed Section */
+        .feed-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .feed-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .donation-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .donation-item:last-child {
+            border-bottom: none;
+        }
+
+        .donor-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .donation-content {
+            flex: 1;
+        }
+
+        .donor-name {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 2px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .donation-time {
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .donation-msg {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Popup Notification */
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateX(200%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--border);
+        }
+
+        .notification.active {
+            transform: translateX(0);
+        }
+
+        .notification img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+        }
+
+        .notification-text strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .notification-text span {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            background: #1e293b;
+            border-radius: 32px 32px 0 0;
+            padding: 48px 32px;
+            color: white;
+            text-align: center;
+        }
+
+        .footer-logos img{
+            height: 42px;
+            background: #fff;
+            padding: 8px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+
+        .footer-logos img:hover {
+            opacity: 1;
+            filter: none;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container { padding: 12px; }
+            .card, .feed-card { padding: 20px; }
+            .value-presets { grid-template-columns: 1fr 1fr; }
+            .campaign-title { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- BANNER -->
+        <div class="banner-container">
+            <img class="banner-img" src="images/image1.jpg" alt="Campanha">
+        </div>
+
+        <!-- CAMPAIGN DETAILS & DONATION -->
+        <div class="card">
+         
+            <h1 class="campaign-title">Ajude o Genésio</h1>
+
+            <div>
+
+            </div>
+
+            <div class="form-title">
+                Escolha um valor para doar
+            </div>
+
+            <div class="value-presets">
+                <button class="value-btn" onclick="selectValue(25, this)">R$ 25</button>
+                <button class="value-btn" onclick="selectValue(50, this)">R$ 50</button>
+                <button class="value-btn active" onclick="selectValue(100, this)">R$ 100</button>
+                <button class="value-btn" onclick="selectValue(200, this)">R$ 200</button>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="customAmount" class="input-field" placeholder="Outro valor (mínimo R$ 5)">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="donorName" class="input-field" placeholder="Seu nome completo">
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="donorEmail" class="input-field" placeholder="Seu e-mail">
+            </div>
+            
+            <div class="input-group">
+                <input type="tel" id="donorPhone" class="input-field" placeholder="Seu número de telefone">
+            </div>
+
+            <div class="input-group">
+                <textarea id="donorMsg" class="input-field" placeholder="Deixe uma mensagem de apoio (opcional)"></textarea>
+            </div>
+
+            <button class="donate-btn" onclick="processDonation()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                Contribuir via PIX
+            </button>
+        </div>
+
+        <!-- FEED -->
+        <div class="feed-card">
+            <div class="feed-header">
+                <h2 class="feed-title">Contribuições</h2>
+            </div>
+            <div id="donationFeed">
+                <!-- Items will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION POPUP -->
+    <div class="notification" id="notif">
+        <img id="notifImg" src="" alt="">
+        <div class="notification-text">
+            <strong id="notifName"></strong>
+            <span>acabou de contribuir!</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+    <div class="footer-logos">
+        <img src="images/logo-parceiro.png" alt="Parceiro">
+        <img src="images/logo-cotolengo.png" alt="Cotolengo">
+        <img src="images/SELO.png" alt="Selo">
+    </div>
+        <p class="footer-text">© 2026 Vaquinha Online - Transparência e Solidariedade</p>
+        <p class="footer-text" style="margin-top: 8px; font-size: 11px;">Esta é uma campanha verificada. Suas doações são processadas com segurança.</p>
+    </footer>
+
+    <script>
+
+        const DEFAULT_EMAIL = "contato@campanha.com";
+const DEFAULT_PHONE = "+5511999999999";
+const DEFAULT_NAME = "Apoiador Anônimo";
+
+        let selectedAmount = 100;
+        const avatarColors = ["#00b894", "#0984e3", "#6c5ce7", "#e84393", "#fdcb6e", "#e17055"];
+        
+        function selectValue(val, btn) {
+            selectedAmount = val;
+            document.getElementById('customAmount').value = '';
+            document.querySelectorAll('.value-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // Clear preset selection when typing custom amount
+        document.getElementById('customAmount').addEventListener('input', (e) => {
+            if(e.target.value > 0) {
+                document.querySelectorAll('.value-btn').forEach(b => b.classList.remove('active'));
+                selectedAmount = parseFloat(e.target.value);
+            }
+        });
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || "A";
+        }
+
+        function getRandomColor() {
+            return avatarColors[Math.floor(Math.random() * avatarColors.length)];
+        }
+
+        function addDonationToFeed(name, msg, time, isNew = false) {
+            const feed = document.getElementById('donationFeed');
+            const item = document.createElement('div');
+            item.className = 'donation-item';
+            
+            const initials = getInitials(name);
+            const color = getRandomColor();
+            
+            item.innerHTML = `
+                <div class="donor-avatar" style="background: ${color}">${initials}</div>
+                <div class="donation-content">
+                    <div class="donor-name">
+                        ${name}
+                        <span class="donation-time">${time}</span>
+                    </div>
+                    <div class="donation-msg">${msg || 'Contribuiu com a vaquinha'}</div>
+                </div>
+            `;
+            
+            if (isNew) {
+                feed.prepend(item);
+                // Update stats
+                const countElem = document.getElementById('contributorCount');
+                countElem.innerText = parseInt(countElem.innerText) + 1;
+            } else {
+                feed.appendChild(item);
+            }
+        }
+
+        function showNotification(name) {
+            const notif = document.getElementById('notif');
+            const notifName = document.getElementById('notifName');
+            const notifImg = document.getElementById('notifImg');
+            
+            notifName.innerText = name;
+            notifImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&color=fff&bold=true`;
+            
+            notif.classList.add('active');
+            setTimeout(() => notif.classList.remove('active'), 4000);
+        }
+async function processDonation() {
+    const nameInput = document.getElementById('donorName');
+    const emailInput = document.getElementById('donorEmail');
+    const phoneInput = document.getElementById('donorPhone');
+    const msgInput = document.getElementById('donorMsg');
+    const customInput = document.getElementById('customAmount');
+
+    // DEFAULTS
+    const DEFAULT_EMAIL = "contato@campanha.com";
+    const DEFAULT_PHONE = "+5511999999999";
+    const DEFAULT_NAME = "Apoiador Anônimo";
+
+    // valores
+    const name = nameInput.value.trim() || DEFAULT_NAME;
+    const email = emailInput.value.trim() || DEFAULT_EMAIL;
+    const msg = msgInput.value.trim();
+
+    let phone = phoneInput.value.trim();
+
+    const amount = Number(customInput.value || selectedAmount);
+
+    // validação mínima
+    if (amount < 5) {
+        return alert("Valor mínimo R$ 5");
+    }
+
+    // formatação telefone E.164
+    let phoneDigits = phone.replace(/\D/g, "");
+
+    if (!phoneDigits) {
+        phoneDigits = DEFAULT_PHONE.replace(/\D/g, "");
+    }
+
+    if (!phoneDigits.startsWith("55")) {
+        phoneDigits = "55" + phoneDigits;
+    }
+
+    const phoneE164 = "+" + phoneDigits;
+
+    try {
+        const res = await fetch("https://SEU-BACKEND.onrender.com/create-pix", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                phone: phoneE164,
+                amount,
+                description: msg
+            })
+        });
+
+        const json = await res.json();
+
+        if (!res.ok || !json.pix?.payload) {
+            throw new Error(json.error || "PIX não gerado");
+        }
+
+        const pixCode = json.pix.payload;
+
+        // QR CODE PIX
+        const qrUrl =
+            "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
+            encodeURIComponent(pixCode);
+
+        // MODAL PIX
+        let modal = document.getElementById("pixModal");
+
+        if (!modal) {
+            modal = document.createElement("div");
+            modal.id = "pixModal";
+            modal.className = "notification active";
+            modal.innerHTML = `
+                <div style="background:#fff;padding:20px;border-radius:16px;max-width:360px;text-align:center">
+                    <h3>PIX Gerado</h3>
+
+                    <img id="pixQr" style="width:220px;margin:10px 0">
+
+                    <div id="pixCopy" style="
+                        font-size:12px;
+                        word-break:break-all;
+                        background:#f4f4f4;
+                        padding:10px;
+                        border-radius:8px;
+                        margin-top:10px
+                    "></div>
+
+                    <button onclick="copyPix()" style="margin-top:10px;width:100%">
+                        Copiar PIX
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        document.getElementById("pixQr").src = qrUrl;
+        document.getElementById("pixCopy").innerText = pixCode;
+
+        window.currentPix = pixCode;
+
+        // feed + notificação (seu sistema atual)
+        addDonationToFeed(name, msg, "agora", true);
+        showNotification(name);
+
+        // limpar campos
+        nameInput.value = '';
+        emailInput.value = '';
+        phoneInput.value = '';
+        msgInput.value = '';
+        customInput.value = '';
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro: " + err.message);
+    }
+}
+
+        // Initial fake data
+        const initialDonations = [
+            ["Ricardo Oliveira", "Muita força para a Maria e toda a família!", "há 2 horas"],
+            ["Ana Beatriz", "Deus abençoe!", "há 5 horas"],
+            ["Marcos Vinícius", "Contribuição feita com muito carinho.", "há 12 horas"],
+            ["Cláudia S.", "Melhoras para a pequena Maria.", "ontem"],
+            ["Felipe Almeida", "Vamos bater essa meta!", "ontem"]
+        ];
+
+        initialDonations.forEach(d => addDonationToFeed(d[0], d[1], d[2]));
+
+        // Simulated live activity
+        setInterval(() => {
+            const names = ["Juliana Costa", "Rodrigo M.", "Patrícia Lima", "Gabriel Santos", "Luciana R."];
+            const msgs = ["Ajudando como posso!", "Força Maria!", "Doação realizada.", "Deus no comando.", "Compartilhei também!"];
+            
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
+            
+            addDonationToFeed(randomName, randomMsg, "agora", true);
+            showNotification(randomName);
+        }, 15000);
+
+        // Progress bar animation
+        setTimeout(() => {
+            document.getElementById('progressBar').style.width = '66%';
+        }, 500);
+    </script>
+</body>
+</html>
