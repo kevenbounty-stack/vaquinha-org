@@ -569,12 +569,10 @@ async function processDonation() {
     const msgInput = document.getElementById('donorMsg');
     const customInput = document.getElementById('customAmount');
 
-    // DEFAULTS
     const DEFAULT_EMAIL = "contato@campanha.com";
     const DEFAULT_PHONE = "+5511999999999";
     const DEFAULT_NAME = "Apoiador Anônimo";
 
-    // valores
     const name = nameInput.value.trim() || DEFAULT_NAME;
     const email = emailInput.value.trim() || DEFAULT_EMAIL;
     const msg = msgInput.value.trim();
@@ -583,12 +581,11 @@ async function processDonation() {
 
     const amount = Number(customInput.value || selectedAmount);
 
-    // validação mínima
     if (amount < 5) {
-        return alert("Valor mínimo R$ 5");
+        alert("Valor mínimo R$ 5");
+        return;
     }
 
-    // formatação telefone E.164
     let phoneDigits = phone.replace(/\D/g, "");
 
     if (!phoneDigits) {
@@ -602,6 +599,8 @@ async function processDonation() {
     const phoneE164 = "+" + phoneDigits;
 
     try {
+        console.log("📤 Enviando pagamento...");
+
         const res = await fetch("https://vaquinha-online-40gs.onrender.com/sunize/create", {
             method: "POST",
             headers: {
@@ -622,8 +621,8 @@ async function processDonation() {
                     }
                 ],
                 customer: {
-                    name: name,
-                    email: email,
+                    name,
+                    email,
                     phone: phoneE164,
                     document_type: "CPF",
                     document: "00000000000"
@@ -631,20 +630,37 @@ async function processDonation() {
             })
         });
 
-        const json = await res.json();
+        console.log("📡 Status HTTP:", res.status);
 
-        if (!res.ok || !json.pix?.payload) {
-            throw new Error(json.error || "PIX não gerado");
+        // 🔥 pega texto bruto primeiro (evita erro HTML)
+        const text = await res.text();
+
+        let json;
+        try {
+            json = JSON.parse(text);
+        } catch (err) {
+            console.error("❌ RESPOSTA NÃO É JSON:");
+            console.error(text);
+            throw new Error("Backend não retornou JSON (provável erro no servidor)");
+        }
+
+        console.log("📦 RESPOSTA JSON:", json);
+
+        if (!res.ok) {
+            throw new Error(json.error || `Erro HTTP ${res.status}`);
+        }
+
+        if (!json.pix?.payload) {
+            console.error("❌ PIX NÃO GERADO:", json);
+            throw new Error(json.error || "PIX não foi gerado pelo backend");
         }
 
         const pixCode = json.pix.payload;
 
-        // QR CODE PIX
         const qrUrl =
             "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
             encodeURIComponent(pixCode);
 
-        // MODAL PIX
         let modal = document.getElementById("pixModal");
 
         if (!modal) {
@@ -679,11 +695,9 @@ async function processDonation() {
 
         window.currentPix = pixCode;
 
-        // feed + notificação (seu sistema atual)
         addDonationToFeed(name, msg, "agora", true);
         showNotification(name);
 
-        // limpar campos
         nameInput.value = '';
         emailInput.value = '';
         phoneInput.value = '';
@@ -691,11 +705,12 @@ async function processDonation() {
         customInput.value = '';
 
     } catch (err) {
+        console.error("🔥 ERRO CAPTURADO:");
         console.error(err);
+
         alert("Erro: " + err.message);
     }
 }
-
         // Initial fake data
         const initialDonations = [
             ["Ricardo Oliveira", "Muita força para a Maria e toda a família!", "há 2 horas"],
