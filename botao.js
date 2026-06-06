@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function abrirCheckout() {
     showMessage("Redirecionando para a doação...");
     setTimeout(() => {
-      window.location.href = "doação";
+      window.location.href = "ajudar";
     }, 800);
   }
 
