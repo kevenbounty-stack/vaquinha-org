@@ -602,17 +602,32 @@ async function processDonation() {
     const phoneE164 = "+" + phoneDigits;
 
     try {
-        const res = await fetch("https://SEU-BACKEND.onrender.com/create-pix", {
+        const res = await fetch("https://vaquinha-online-40gs.onrender.com/sunize/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name,
-                email,
-                phone: phoneE164,
-                amount,
-                description: msg
+                external_id: "doacao_" + Date.now(),
+                total_amount: amount,
+                payment_method: "PIX",
+                items: [
+                    {
+                        id: "1",
+                        title: "Doação - Ajude o Genésio",
+                        description: msg || "Doação via vaquinha",
+                        price: amount,
+                        quantity: 1,
+                        is_physical: false
+                    }
+                ],
+                customer: {
+                    name: name,
+                    email: email,
+                    phone: phoneE164,
+                    document_type: "CPF",
+                    document: "00000000000"
+                }
             })
         });
 
