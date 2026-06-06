@@ -5,6 +5,7 @@
 <meta property="og:description" content="Contribua para ajudar no tratamento e recuperação do Genésio. Toda ajuda faz diferença.">
 <meta property="og:image" content="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/LGNoYc3531557.jpeg?quality=81#271090">
 <meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajude o Genésio na sua recuperação após três AVCs</title>
     <link rel="icon" href="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/LGNoYc3531557.jpeg?quality=81#271090">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -63,22 +64,75 @@
         }
 
         /* Banner */
-        .banner-container {
-            position: relative;
-            width: 100%;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 24px;
-            aspect-ratio: 16/9;
-        }
+ .banner-container {
+    position: relative;
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    box-shadow: var(--shadow-lg);
+}
 
-        .banner-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+/* SLIDER */
+.banner-slider {
+    position: absolute;
+    inset: 0;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 1s ease, transform 1.2s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* TEXTO POR CIMA DO VIDRO */
+.banner-content {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 20px;
+    color: white;
+    z-index: 2;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    width: fit-content;
+    margin-bottom: 6px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+}
 
         /* Main Content Card */
         .card {
@@ -335,6 +389,38 @@
             flex: 1;
         }
 
+        .banner-container {
+            position: relative;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.05),
+                rgba(0,0,0,0.65)
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 18px;
+            color: white;
+        }
+
+        .btn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,0.4);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .donor-name {
             font-weight: 700;
             font-size: 15px;
@@ -515,8 +601,43 @@
 
         <!-- BANNER -->
         <div class="banner-container">
-            <img class="banner-img" src="images/image1.jpg" alt="Campanha">
+
+            <div class="banner-slider">
+                <img src="images/image1.jpg" class="slide active">
+                <img src="images/image2.jpg" class="slide">
+                <img src="images/image3.jpg" class="slide">
+                <img src="images/image4.jpg" class="slide">
+                <img src="images/image5.jpg" class="slide">
+            </div>
+
+            <!-- vidro por cima de TUDO -->
+            <div class="banner-glass-overlay"></div>
+
+            <!-- texto por cima do vidro -->
+            <div class="banner-content">
+                <div class="badge">❤️ Campanha Solidária</div>
+
+                <div class="subtitle">
+                    Toda contribuição ajuda na reabilitação.
+                </div>
+            </div>
         </div>
+
+        <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".slide");
+
+        function showSlide(i) {
+            slides.forEach((s, idx) => {
+                s.classList.toggle("active", idx === i);
+            });
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 4000);
+        </script>
 
         <!-- CAMPAIGN DETAILS & DONATION -->
         <div class="card">
@@ -587,11 +708,12 @@
     Valor a ser doado: <span id="previewValue">100</span>
 </div>
 
-            <button class="donate-btn" onclick="processDonation()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                Contribuir via PIX
-            </button>
-        </div>
+        <button id="donateBtn" class="donate-btn" onclick="processDonation()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            Contribuir via PIX
+        </button>
 <div class="hero-image">
     <img src="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/ucPDMX4780602.jpeg?width=1536&height=818&quality=70#598218" alt="Campanha">
 </div>
@@ -779,6 +901,46 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 async function processDonation() {
+
+    const btn = document.getElementById("donateBtn");
+
+    // salva conteúdo original (pra restaurar depois)
+    const originalHTML = btn.innerHTML;
+
+    // ativa loading
+    btn.disabled = true;
+    btn.style.opacity = "0.9";
+    btn.style.cursor = "not-allowed";
+    btn.style.background = "linear-gradient(135deg,#0984e3,#00cec9)";
+
+    btn.innerHTML = `
+        <div class="btn-spinner"></div>
+        <span style="margin-left:10px;">Gerando pagamento...</span>
+    `;
+
+    setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+        btn.style.opacity = "1";
+        btn.style.cursor = "pointer";
+        btn.style.background = ""; // volta ao CSS original
+    }, 30000);
+
+    function resetDonateButton() {
+        const btn = document.getElementById("donateBtn");
+
+        btn.disabled = false;
+        btn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            Contribuir via PIX
+        `;
+
+        btn.style.opacity = "1";
+        btn.style.cursor = "pointer";
+        btn.style.background = "";
+    }
 
     const name = document.getElementById("donorName").value.trim() || "Apoiador Anônimo";
     const email = document.getElementById("donorEmail").value.trim() || "contato@campanha.com";
