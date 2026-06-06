@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajude o Genésio</title>
+<meta property="og:title" content="Ajude o Genésio na sua recuperação após três AVCs">
+<meta property="og:description" content="Contribua para ajudar no tratamento e recuperação do Genésio. Toda ajuda faz diferença.">
+<meta property="og:image" content="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/LGNoYc3531557.jpeg?quality=81#271090">
+<meta property="og:type" content="website">
+    <title>Ajude o Genésio na sua recuperação após três AVCs</title>
+    <link rel="icon" href="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/LGNoYc3531557.jpeg?quality=81#271090">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -127,7 +130,7 @@
 
         .progress-bar-fill {
             height: 100%;
-            width: 65%;
+            width: 10% !important;
             background: linear-gradient(90deg, var(--primary), #55efc4);
             border-radius: 6px;
             transition: width 1s ease-out;
@@ -226,33 +229,56 @@
             resize: vertical;
         }
 
-        .donate-btn {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
+  .donate-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    box-shadow: 0 10px 25px rgba(0, 184, 148, 0.25);
+    position: relative;
+    overflow: hidden;
+}
 
-        .donate-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
-        }
+    .donate-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+        transition: 0.5s;
+    }
 
-        .donate-btn:active {
-            transform: translateY(0);
-        }
+    .donate-btn:hover::before {
+        left: 100%;
+    }
+
+    .donate-btn:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 14px 30px rgba(0, 184, 148, 0.35);
+    }
+
+    .donate-btn:active {
+        transform: translateY(0) scale(0.99);
+        box-shadow: 0 6px 15px rgba(0, 184, 148, 0.2);
+    }
 
         /* Feed Section */
         .feed-card {
@@ -362,24 +388,58 @@
             font-size: 14px;
         }
 
+        .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1e293b;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    opacity: 0;
+    transition: all 0.35s ease;
+    z-index: 99999;
+    max-width: 90%;
+    text-align: center;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast.success {
+    background: #00b894;
+}
+
+.toast.error {
+    background: #e74c3c;
+}
+
+.toast.warning {
+    background: #f39c12;
+}
+
         .notification-text span {
             font-size: 12px;
             color: var(--text-light);
         }
 
-        /* Footer */
         .footer {
             margin-top: 48px;
-            background: #1e293b;
+            background: #176142;
             border-radius: 32px 32px 0 0;
-            padding: 48px 32px;
+            padding: 80px 32px;
             color: white;
             text-align: center;
         }
 
         .footer-logos img{
-            height: 42px;
-            background: #fff;
+            height: 62px;
             padding: 8px;
             border-radius: 10px;
             object-fit: contain;
@@ -395,6 +455,49 @@
             color: #94a3b8;
         }
 
+        .hero-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 16px 0 20px 0;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: contain;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+        }
+
+        .verse-box {
+            background: #f0fff4;          /* cor suave de fundo */
+            border-radius: 12px;          /* cantos arredondados */
+            padding: 20px 24px;           /* espaçamento interno */
+            max-width: 500px;             /* tamanho máximo */
+            margin: 24px auto;            /* centraliza horizontalmente */
+            text-align: center;           /* texto centralizado */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* sombra suave */
+            border: 1px solid #e2f5e9;   /* borda delicada */
+        }
+
+        .verse-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .verse-ref {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #00b894;              /* cor do destaque */
+            font-style: italic;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .container { padding: 12px; }
@@ -406,6 +509,8 @@
 </head>
 <body>
 
+    <div id="toast" class="toast"></div>
+
     <div class="container">
 
         <!-- BANNER -->
@@ -416,9 +521,25 @@
         <!-- CAMPAIGN DETAILS & DONATION -->
         <div class="card">
          
-            <h1 class="campaign-title">Ajude o Genésio</h1>
+            <h1 class="campaign-title">Sua doação ajuda diretamente na recuperação do Genésio</h1>
 
             <div>
+                <div class="progress-section">
+
+    <div class="progress-info">
+        <div class="amount-raised">
+            R$ 5.851,33
+        </div>
+        <div class="goal-text">
+            de R$ 50.000,00
+        </div>
+    </div>
+
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+</div>
 
             </div>
 
@@ -427,38 +548,53 @@
             </div>
 
             <div class="value-presets">
-                <button class="value-btn" onclick="selectValue(25, this)">R$ 25</button>
-                <button class="value-btn" onclick="selectValue(50, this)">R$ 50</button>
-                <button class="value-btn active" onclick="selectValue(100, this)">R$ 100</button>
-                <button class="value-btn" onclick="selectValue(200, this)">R$ 200</button>
+                <button class="value-btn" onclick="selectValue(5, this)">R$ 5,00</button>
+                <button class="value-btn" onclick="selectValue(10, this)">R$ 10,00</button>
+                <button class="value-btn" onclick="selectValue(20, this)">R$ 20,00</button>
+                <button class="value-btn" onclick="selectValue(25, this)">R$ 25,00</button>
+                <button class="value-btn" onclick="selectValue(50, this)">R$ 50,00</button>
+                <button class="value-btn" onclick="selectValue(100, this)">R$ 100,00</button>
+                <button class="value-btn" onclick="selectValue(200, this)">R$ 200,00</button>
+                <button class="value-btn" onclick="selectValue(500, this)">R$ 500,00</button>
             </div>
 
             <div class="input-group">
-                <input type="number" id="customAmount" class="input-field" placeholder="Outro valor (mínimo R$ 5)">
+                <input type="number" id="customAmount" class="input-field" placeholder="Outro valor (mínimo R$ 5,00)">
             </div>
 
             <div class="input-group">
-                <input type="text" id="donorName" class="input-field" placeholder="Seu nome completo">
+                <input type="text" id="donorName" class="input-field" placeholder="Seu nome (opcional)">
             </div>
 
             <div class="input-group">
-                <input type="email" id="donorEmail" class="input-field" placeholder="Seu e-mail">
-            </div>
-            
-            <div class="input-group">
-                <input type="tel" id="donorPhone" class="input-field" placeholder="Seu número de telefone">
+                <input type="email" id="donorEmail" class="input-field" placeholder="Seu e-mail (opcional)">
             </div>
 
             <div class="input-group">
-                <textarea id="donorMsg" class="input-field" placeholder="Deixe uma mensagem de apoio (opcional)"></textarea>
+                <input type="tel" id="donorPhone" class="input-field" placeholder="Telefone para contato (opcional)">
             </div>
+
+            <div class="input-group">
+                <textarea id="donorMsg" class="input-field" placeholder="Mensagem de apoio (opcional)"></textarea>
+            </div>
+
+            <div id="donationPreview" style="
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #0f172a;
+">
+    Valor a ser doado: <span id="previewValue">100</span>
+</div>
 
             <button class="donate-btn" onclick="processDonation()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
                 Contribuir via PIX
             </button>
         </div>
-
+<div class="hero-image">
+    <img src="https://media.atomicatmedia.net/u/PDPjhMtGWjNqo5Tt0GfZLMJ7TWe2/Pictures/ucPDMX4780602.jpeg?width=1536&height=818&quality=70#598218" alt="Campanha">
+</div>
         <!-- FEED -->
         <div class="feed-card">
             <div class="feed-header">
@@ -479,6 +615,12 @@
         </div>
     </div>
 
+    <div class="verse-box">
+        <p class="verse-text">
+            “Tem dias em que tudo parece pesado demais… mas eu continuo tentando, porque desistir não é uma opção agora.”
+        </p>
+    </div>
+
     <!-- FOOTER -->
     <footer class="footer">
     <div class="footer-logos">
@@ -496,22 +638,50 @@
 const DEFAULT_PHONE = "+5511999999999";
 const DEFAULT_NAME = "Apoiador Anônimo";
 
-        let selectedAmount = 100;
+        let selectedAmount = 10;
         const avatarColors = ["#00b894", "#0984e3", "#6c5ce7", "#e84393", "#fdcb6e", "#e17055"];
         
         function selectValue(val, btn) {
             selectedAmount = val;
-            document.getElementById('customAmount').value = '';
+
+            const input = document.getElementById('customAmount');
+            input.value = val;
+
             document.querySelectorAll('.value-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+
+            updatePreview();
         }
 
-        // Clear preset selection when typing custom amount
+        document.getElementById("donorPhone").addEventListener("input", (e) => {
+            let v = e.target.value;
+
+            // remove tudo que não for número
+            v = v.replace(/\D/g, "");
+
+            // se começar com 00, remove
+            if (v.startsWith("00")) {
+                v = v.substring(2);
+            }
+
+            // se não tiver código do Brasil, adiciona 55
+            if (!v.startsWith("55")) {
+                v = "55" + v;
+            }
+
+            // limita tamanho (Brasil: 13 a 14 dígitos com DDI)
+            v = v.substring(0, 13);
+
+            e.target.value = "+" + v;
+        });
+
         document.getElementById('customAmount').addEventListener('input', (e) => {
-            if(e.target.value > 0) {
+            if (e.target.value > 0) {
                 document.querySelectorAll('.value-btn').forEach(b => b.classList.remove('active'));
                 selectedAmount = parseFloat(e.target.value);
             }
+
+            updatePreview();
         });
 
         function getInitials(name) {
@@ -567,11 +737,61 @@ function addDonationToFeed(name, msg, time, isNew = false) {
             notif.classList.add('active');
             setTimeout(() => notif.classList.remove('active'), 4000);
         }
+
+        function showToast(message, type = "error") {
+            const toast = document.getElementById("toast");
+
+            toast.className = "toast show " + type;
+            toast.innerText = message;
+
+            setTimeout(() => {
+                toast.className = "toast";
+            }, 3000);
+        }
+
+function formatBRL(value) {
+    return Number(value).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+}
+
+function updatePreview() {
+    const custom = document.getElementById("customAmount").value;
+
+    const value = custom && custom > 0 ? custom : selectedAmount;
+
+    document.getElementById("previewValue").innerText = formatBRL(value);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    selectedAmount = 10;
+
+    // marca o botão 10 como ativo
+    const btn10 = [...document.querySelectorAll(".value-btn")]
+        .find(b => b.innerText.includes("10"));
+
+    if (btn10) btn10.classList.add("active");
+
+    // atualiza preview inicial
+    document.getElementById("customAmount").value = 10;
+    updatePreview();
+});
+
 async function processDonation() {
 
     const name = document.getElementById("donorName").value.trim() || "Apoiador Anônimo";
     const email = document.getElementById("donorEmail").value.trim() || "contato@campanha.com";
-    const phone = document.getElementById("donorPhone").value.trim() || "+5511999999999";
+
+    let phone = document.getElementById("donorPhone").value.trim();
+    if (!phone) {
+        phone = "+5511999999999";
+    } else {
+        phone = phone.replace(/\D/g, "");
+        if (!phone.startsWith("55")) phone = "55" + phone;
+        phone = "+" + phone;
+    }
+
     const msg = document.getElementById("donorMsg").value.trim();
 
     const amount = Number(
@@ -579,75 +799,56 @@ async function processDonation() {
     );
 
     if (amount < 5) {
-        alert("Valor mínimo R$ 5");
+        showToast("Valor mínimo R$ 5", "warning");
         return;
     }
 
     try {
 
-        const res = await fetch(
-            "https://vaquinha-online-40gs.onrender.com/create-pix",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    external_id: "doacao_" + Date.now(),
-                    total_amount: amount,
-                    payment_method: "PIX",
-                    items: [{
-                        id: "1",
-                        title: "Doação - Ajude o Genésio",
-                        description: msg || "Doação via vaquinha",
-                        price: amount,
-                        quantity: 1,
-                        is_physical: false
-                    }],
-                    customer: {
-                        name,
-                        email,
-                        phone,
-                        document_type: "CPF",
-                        document: "12345678909"
-                    }
-                })
-            }
-        );
+        const res = await fetch("https://vaquinha-online-40gs.onrender.com/create-pix", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                external_id: "doacao_" + Date.now(),
+                total_amount: amount,
+                payment_method: "PIX",
+                items: [{
+                    id: "1",
+                    title: "Doação - Genésio",
+                    description: msg || "Doação via vaquinha",
+                    price: amount,
+                    quantity: 1,
+                    is_physical: false
+                }],
+                customer: { name, email, phone }
+            })
+        });
 
         const data = await res.json();
 
-        if (!res.ok) {
-            throw new Error(
-                data.error ||
-                data.message ||
-                "Erro ao gerar PIX"
-            );
-        }
-
-        if (!data.pix || !data.pix.payload) {
-            throw new Error("PIX não retornado pela API");
-        }
+        if (!data.pix?.payload) throw new Error("PIX inválido");
 
         const pixCode = data.pix.payload;
+        const formattedAmount = formatBRL(amount);
 
         const qrUrl =
             "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" +
             encodeURIComponent(pixCode);
 
-        // Remove modal antigo
-        const antigo = document.getElementById("pixModal");
-        if (antigo) antigo.remove();
+        // remove modal antigo
+        const old = document.getElementById("pixModal");
+        if (old) old.remove();
 
-        // Cria modal bonito
+        // tempo de expiração (15 min)
+        let timeLeft = 15 * 60;
+
         const modal = document.createElement("div");
-
         modal.id = "pixModal";
 
         modal.style.cssText = `
             position:fixed;
             inset:0;
-            background:rgba(0,0,0,.7);
+            background:rgba(0,0,0,.75);
             display:flex;
             justify-content:center;
             align-items:center;
@@ -655,142 +856,181 @@ async function processDonation() {
         `;
 
         modal.innerHTML = `
+        <div style="
+            background:#fff;
+            width:92%;
+            max-width:420px;
+            border-radius:18px;
+            padding:22px;
+            position:relative;
+            text-align:center;
+            font-family:Inter;
+        ">
+
+            <!-- X -->
+            <div id="closePix" style="
+                position:absolute;
+                top:10px;
+                right:12px;
+                font-size:20px;
+                cursor:pointer;
+                font-weight:700;
+                color:#666;
+            ">✕</div>
+
+            <h2 style="margin-bottom:6px;">PIX gerado</h2>
+
             <div style="
-                background:#fff;
-                width:90%;
-                max-width:420px;
-                border-radius:20px;
-                padding:25px;
-                text-align:center;
-                box-shadow:0 20px 50px rgba(0,0,0,.3);
+                color:#00b894;
+                font-weight:800;
+                margin-bottom:10px;
             ">
-
-                <h2 style="margin-bottom:15px">
-                    PIX Gerado ✅
-                </h2>
-
-                <img
-                    src="${qrUrl}"
-                    style="
-                        width:260px;
-                        max-width:100%;
-                        margin-bottom:15px;
-                    "
-                >
-
-                <textarea
-                    id="pixCodeArea"
-                    readonly
-                    style="
-                        width:100%;
-                        height:100px;
-                        border:1px solid #ddd;
-                        border-radius:10px;
-                        padding:10px;
-                        font-size:12px;
-                    "
-                >${pixCode}</textarea>
-
-                <button
-                    id="copyPixBtn"
-                    style="
-                        margin-top:15px;
-                        width:100%;
-                        padding:15px;
-                        border:none;
-                        border-radius:12px;
-                        background:#00b894;
-                        color:#fff;
-                        font-weight:bold;
-                        cursor:pointer;
-                    "
-                >
-                    Copiar Código PIX
-                </button>
-
-                <button
-                    id="closePixBtn"
-                    style="
-                        margin-top:10px;
-                        width:100%;
-                        padding:12px;
-                        border:none;
-                        border-radius:12px;
-                        background:#eee;
-                        cursor:pointer;
-                    "
-                >
-                    Fechar
-                </button>
-
+                ${formattedAmount}
             </div>
+
+            <div id="timer" style="
+                font-size:13px;
+                margin-bottom:10px;
+                color:#e74c3c;
+                font-weight:600;
+            ">
+                Expira em 15:00
+            </div>
+
+            <img src="${qrUrl}" style="width:240px;margin:10px 0;border-radius:10px">
+
+            <textarea id="pixCodeArea" readonly style="
+                width:100%;
+                height:90px;
+                border-radius:10px;
+                padding:10px;
+                font-size:11px;
+            ">${pixCode}</textarea>
+
+            <button id="copyBtn" style="
+                width:100%;
+                margin-top:12px;
+                padding:14px;
+                border:none;
+                border-radius:12px;
+                background:linear-gradient(135deg,#00b894,#00cec9);
+                color:white;
+                font-weight:800;
+                cursor:pointer;
+                transition:.2s;
+            ">
+                Copiar PIX
+            </button>
+
+        </div>
         `;
 
         document.body.appendChild(modal);
 
-        document
-            .getElementById("copyPixBtn")
-            .onclick = async () => {
+        // COPIAR (UI MODERNA)
+        document.getElementById("copyBtn").onclick = async () => {
+            await navigator.clipboard.writeText(pixCode);
+            const btn = document.getElementById("copyBtn");
+            btn.innerText = "PIX copiado ✓";
+            btn.style.background = "#2ecc71";
+        };
 
-                await navigator.clipboard.writeText(pixCode);
+        // FECHAR
+        document.getElementById("closePix").onclick = () => modal.remove();
 
-                document.getElementById(
-                    "copyPixBtn"
-                ).innerText = "PIX Copiado ✅";
-            };
+        // TIMER
+        const timerEl = document.getElementById("timer");
 
-        document
-            .getElementById("closePixBtn")
-            .onclick = () => {
-                modal.remove();
-            };
+        const interval = setInterval(() => {
+            timeLeft--;
 
-        addDonationToFeed(
-            name,
-            msg || "Contribuiu via PIX",
-            "agora",
-            false
-        );
+            const min = String(Math.floor(timeLeft / 60)).padStart(2, "0");
+            const sec = String(timeLeft % 60).padStart(2, "0");
 
-        showNotification(name);
+            timerEl.innerText = `Expira em ${min}:${sec}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                timerEl.innerText = "PIX expirado";
+                timerEl.style.color = "#e74c3c";
+                document.getElementById("copyBtn").disabled = true;
+                document.getElementById("copyBtn").innerText = "Expirado";
+            }
+
+        }, 1000);
 
     } catch (err) {
-
+        alert("Erro ao gerar PIX");
         console.error(err);
-
-        alert(
-            "Erro: " +
-            (err.message || "Falha ao gerar PIX")
-        );
     }
 }
+
         // Initial fake data
         const initialDonations = [
-            ["Ricardo Oliveira", "Muita força para a Maria e toda a família!", "há 2 horas"],
-            ["Ana Beatriz", "Deus abençoe!", "há 5 horas"],
-            ["Marcos Vinícius", "Contribuição feita com muito carinho.", "há 12 horas"],
-            ["Cláudia S.", "Melhoras para a pequena Maria.", "ontem"],
-            ["Felipe Almeida", "Vamos bater essa meta!", "ontem"]
+            ["Ricardo Oliveira", "Força nessa fase, que Deus abençoe.", "há 2 dias"],
+            ["Ana Beatriz", "Espero que ajude um pouco 🙏", "há 2 dias"],
+            ["Marcos Vinícius", "Contribuí com o que pude.", "há 3 dias"],
+            ["Dona Célia", "Que Deus cuide dele, já passei por algo parecido.", "há 3 dias"],
+            ["Felipe Almeida", "Tamo junto, vai dar certo!", "há 4 dias"],
+            ["Juliana Costa", "Enviei minha ajuda, força!", "há 4 dias"],
+            ["Seu João", "Não é muito, mas é de coração.", "há 5 dias"],
+            ["Rafael Souza", "Que tudo se resolva logo", "há 5 dias"],
+            ["Camila Ferreira", "Ajuda enviada, melhoras!", "há 6 dias"],
+            ["Sr. Antônio", "Força filho, Deus está contigo.", "há 6 dias"],
+            ["Lucas Martins", "Contribuição feita.", "há 1 semana"],
+            ["Fernanda Rocha", "Espero que tudo dê certo na recuperação.", "há 1 semana"]
         ];
 
         initialDonations.forEach(d => addDonationToFeed(d[0], d[1], d[2]));
 
         // Simulated live activity
-        setInterval(() => {
-            const names = ["Juliana Costa", "Rodrigo M.", "Patrícia Lima", "Gabriel Santos", "Luciana R."];
-            const msgs = ["Ajudando como posso!", "Força Maria!", "Doação realizada.", "Deus no comando.", "Compartilhei também!"];
-            
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
-            
-            addDonationToFeed(randomName, randomMsg, "agora", true);
-            showNotification(randomName);
-        }, 15000);
+    function randomDelay() {
+        // intervalo humano real: 25s até 2 min
+        return Math.floor(Math.random() * (120000 - 25000)) + 25000;
+    }
 
-        // Progress bar animation
-        setTimeout(() => {
-            document.getElementById('progressBar').style.width = '66%';
-        }, 500);
+    function simulateDonation() {
+
+        const names = [
+            "Juliana Costa", "Rodrigo M.", "Patrícia Lima", "Gabriel S.",
+            "Luciana R.", "Marcos A.", "Fernanda G.", "Ricardo O.",
+            "Camila S.", "Thiago M.", "Bruno Alves", "Letícia Souza",
+            "Carlos Henrique", "Ana Paula", "João Pedro", "Maria Eduarda"
+        ];
+
+        const msgs = [
+            "Fiz uma contribuição pequena, espero que ajude 🙏",
+            "Enviei minha doação agora.",
+            "Força pra ele, vai dar tudo certo.",
+            "Contribuí aqui, de coração.",
+            "Que Deus abençoe essa causa.",
+            "Ajuda enviada 🙏",
+            "Doei um pouco, mas com carinho.",
+            "Tamo junto nessa!",
+            "Espero que consiga alcançar a meta.",
+            "Mais um ajudando aqui."
+        ];
+
+        const times = [
+            "há poucos minutos",
+            "há 5 min",
+            "há 10 min",
+            "há 20 min"
+        ];
+
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
+        const randomTime = times[Math.floor(Math.random() * times.length)];
+
+        addDonationToFeed(randomName, randomMsg, randomTime, true);
+        showNotification(randomName);
+
+        setTimeout(simulateDonation, randomDelay());
+    }
+
+// inicia de forma mais natural (não instantâneo)
+setTimeout(simulateDonation, 12000);
+
     </script>
 </body>
 </html>
